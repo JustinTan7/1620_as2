@@ -42,3 +42,10 @@ function getNote(){
   return noteText
 }
 
+// function that uses the text fron getNote and returns only the first line (title)
+function getTitle(){
+  const vanillaNote = getNote()
+  const splitNote = vanillaNote.split("\n")
+  const title = splitNote[0]
+  return title
+}
