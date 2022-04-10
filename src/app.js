@@ -9,21 +9,21 @@ const notes = [
 // defining variables that will be used
 const newNoteArea = document.querySelector(".write-note-area")
 const addNoteBtn = document.querySelector(".fa-circle-plus")
-const textArea = `<textarea name="" class="textArea" cols="60" rows="30"></textarea>`
-const saveBtn = `<button class="saveBtn">save</button>`
-const cancelBtn = `<button class="cancelBtn">cancel</button>`
+const template = `<textarea name="" class="textArea" cols="60" rows="30"></textarea>
+                  <button class="saveBtn">save</button>
+                  <button class="cancelBtn">cancel</button>`
 const sideBar = document.querySelector(".notes-list")
 
 addNoteBtn.addEventListener("click", (displayNote))
 
 // function that displays the note
 function displayNote() {
-  newNoteArea.insertAdjacentHTML("beforeend", textArea)
-  newNoteArea.insertAdjacentHTML("beforeend",saveBtn)
-  newNoteArea.insertAdjacentHTML("beforeend",cancelBtn)
+  newNoteArea.insertAdjacentHTML("beforeend", template)
   addNoteBtn.removeEventListener("click", displayNote)
   const cancelNoteBtn = document.querySelector('.cancelBtn')
   cancelNoteBtn.addEventListener('click', cancelNote) 
+  const saveBtn = document.querySelector('.saveBtn')
+  saveBtn.addEventListener("click", saveNote)
 }
 
 // functionality for + button
@@ -37,7 +37,7 @@ function cancelNote() {
 
 // function that takes the whole note and returns it
 function getNote(){
-  const text = document.getElementById("textArea")
+  const text = document.querySelector('.textArea')
   const noteText = text.value
   return noteText
 }
@@ -54,7 +54,28 @@ function getTitle(){
 function addTitleToSideNav(){
   const selectNav = document.querySelector(".notes-list")
   const li = document.createElement("li")
-  li.className = "newNote"
+  li.className = "noteTitle"
   li.appendChild(document.createTextNode(getTitle()))
   selectNav.append(li)
 }
+
+// function that adds the notes into notes array of objects
+function getInitialNote(){
+  const navSelected = document.querySelector('.notes-list')
+  const li = document.createElement('li')
+  li.className = 'noteTitle'
+  li.appendChild(document.createTextNode(notes[0].title))
+  navSelected.append(li)
+}
+getInitialNote()
+
+// functionality for the save button
+function saveNote() {
+  getNote()
+  getTitle()
+  addTitleToSideNav()
+  cancelNote()
+  }
+
+  
+
