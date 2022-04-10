@@ -49,3 +49,12 @@ function getTitle(){
   const title = splitNote[0]
   return title
 }
+
+// function that adds the notes to the side nav 
+function addTitleToSideNav(){
+  const selectNav = document.querySelector(".notes-list")
+  const li = document.createElement("li")
+  li.className = "newNote"
+  li.appendChild(document.createTextNode(getTitle()))
+  selectNav.append(li)
+}
