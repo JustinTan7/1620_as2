@@ -5,43 +5,31 @@ const notes = [
     id: 1 
   }
 ]
-function noteTemplate(){
-  const textTemplate = `<textarea name="" id=""cols="50" rows="20"></textarea>
-                        <button class = "save">Save</button>
-                        <button class= "cancel">Cancel</button>`
-  return textTemplate
+
+//defining variables that will be used
+const newNoteArea = document.querySelector(".write-note-area")
+const addNoteBtn = document.querySelector(".fa-circle-plus")
+const textArea = `<textarea name="" class="textArea" cols="60" rows="30"></textarea>`
+const saveBtn = `<button class="saveBtn">save</button>`
+const cancelBtn = `<button class="cancelBtn">cancel</button>`
+const sideBar = document.querySelector("notes-list")
+
+addNoteBtn.addEventListener("click", (displayNote))
+
+//function that displays the note
+function displayNote() {
+  newNoteArea.insertAdjacentHTML("beforeend", textArea)
+  newNoteArea.insertAdjacentHTML("beforeend",saveBtn)
+  newNoteArea.insertAdjacentHTML("beforeend",cancelBtn)
+  addNoteBtn.removeEventListener("click", displayNote)
+  const cancelNoteBtn = document.querySelector('.cancelBtn')
+  cancelNoteBtn.addEventListener('click', cancelNote) 
 }
 
-function blankTemplate(){
-  const blankT = ``
-  return blankT
+//functionality for + button
+addNoteBtn.addEventListener("click", (displayNote))
+
+function cancelNote() {
+  addNoteBtn.addEventListener("click",displayNote)
+  newNoteArea.innerHTML = ''
 }
-
-function newTextArea(note){
-  const newTextDisplay = document.querySelector('.write-note-area')
-  newTextDisplay.innerHTML = ''
-  newTextDisplay.insertAdjacentHTML('beforeend', note)
-}
-
-function noteGet(){
-  const text = document.querySelector('.icons')
-  const note = text.value
-  return note
-}
-
-function deleteText(){
-  const note = blankTemplate()
-  newTextArea(note)
-}
-
-function displayNote(){
-  const text = noteGet()
-  const note = noteTemplate(text)
-  newTextArea(note)
-  const cancelBtn = document.querySelector(".cancel") 
-  cancelBtn.addEventListener('click', deleteText)
-}
-
-plusButton = document.querySelector('.icons')
-plusButton.addEventListener('click', displayNote)
-
