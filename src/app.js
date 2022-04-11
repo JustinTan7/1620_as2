@@ -8,7 +8,7 @@ const notes = [
 
 // defining variables that will be used
 const newNoteArea = document.querySelector(".write-note-area")
-const addNoteBtn = document.querySelector(".fa-circle-plus")
+const addNoteBtn = document.querySelector(".icons")
 const template = `<textarea name="" class="textArea" cols="60" rows="30"></textarea>
                   <button class="saveBtn">save</button>
                   <button class="cancelBtn">cancel</button>`
@@ -22,15 +22,15 @@ function displayNote() {
   const saveBtn = document.querySelector('.saveBtn')
   saveBtn.addEventListener("click", saveNote)
   cancelReadOnly()
-  addNoteBtn.removeEventListener("click", displayNote)
+  addNoteBtn.innerHTML=""
 }
 
-// functionality for + button
 
 // functionality for the cancel button
 function cancelNote() {
   //addNoteBtn.addEventListener("click",displayNote)
   newNoteArea.innerHTML = ''
+  addNoteBtn.innerHTML = '<i class="fa-solid fa-circle-plus"></i>'
 }
 
 // function that closes a ready only note
@@ -122,7 +122,7 @@ function readNote(title){
   readTextArea.innerHTML = finalNote
   const closeButton = document.querySelector('.closeBtn')
   closeButton.addEventListener('click', cancelReadOnly)
-  addNoteBtn.removeEventListener("click", displayNote)
+  //addNoteBtn.removeEventListener("click", displayNote)
   cancelNote()
   }
 }
@@ -144,3 +144,18 @@ function initPage(){
 
 initPage()
 
+function darkmode(){
+  const dark = document.querySelector(".main-container")
+  if (checked == false){
+    dark.classList.replace('light-theme', 'dark-theme')
+    checked = true
+  } else if (checked == true){
+    dark.classList.replace('dark-theme', 'light-theme')
+    checked = false
+  }
+}
+
+function createCheck(){
+  var checkBox = document.querySelector('.theme-toggle')
+  checkBox.addEventListener('click', darkmode)
+}
