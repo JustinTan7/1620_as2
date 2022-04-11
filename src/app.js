@@ -13,30 +13,29 @@ const template = `<textarea name="" class="textArea" cols="60" rows="30"></texta
                   <button class="saveBtn">save</button>
                   <button class="cancelBtn">cancel</button>`
 
-addNoteBtn.addEventListener("click", (displayNote))
 
 // function that displays the note
 function displayNote() {
   newNoteArea.insertAdjacentHTML("beforeend", template)
-  addNoteBtn.removeEventListener("click", displayNote)
   const cancelNoteBtn = document.querySelector('.cancelBtn')
   cancelNoteBtn.addEventListener('click', cancelNote) 
   const saveBtn = document.querySelector('.saveBtn')
   saveBtn.addEventListener("click", saveNote)
+  cancelReadOnly()
+  addNoteBtn.removeEventListener("click", displayNote)
 }
 
 // functionality for + button
-addNoteBtn.addEventListener("click", (displayNote))
 
 // functionality for the cancel button
 function cancelNote() {
-  addNoteBtn.addEventListener("click",displayNote)
+  //addNoteBtn.addEventListener("click",displayNote)
   newNoteArea.innerHTML = ''
 }
 
 // function that closes a ready only note
 function cancelReadOnly(){
-  addNoteBtn.addEventListener('click', displayNote)
+  //addNoteBtn.addEventListener('click', displayNote)
   const readOnlyArea = document.querySelector('.read-note-area')
   readOnlyArea.innerHTML = ''
 }
@@ -67,7 +66,6 @@ function addTitleToSideNav(){
   lastNote.addEventListener('click', (evt) =>{
     newTitle = evt.target.innerHTML
     readNote(newTitle)
-    console.log('hello')
   })
 }
 
@@ -99,7 +97,6 @@ function getInitialNote(){
   li.appendChild(document.createTextNode(notes[0].title))
   navSelected.append(li)
 }
-getInitialNote()
 
 // functionality for the save button
 function saveNote() {
@@ -115,12 +112,9 @@ function readNote(title){
                             <button class="closeBtn">Close</button>`
   const readNoteTitle = document.querySelector(".noteTitle")
   var finalNote = ''
-  console.log(readNoteTitle.innerHTML)
   for (x of notes){
-    console.log(x.title)
     if (title == x.title){
       finalNote = x.title + '\n' + x.noteBody
-      console.log(finalNote)
     }
   const readOnly = document.querySelector('.read-note-area')
   readOnly.innerHTML = readOnlyTemplate
@@ -129,8 +123,24 @@ function readNote(title){
   const closeButton = document.querySelector('.closeBtn')
   closeButton.addEventListener('click', cancelReadOnly)
   addNoteBtn.removeEventListener("click", displayNote)
+  cancelNote()
   }
 }
 
-  
+function initPage(){
+  openText = document.querySelector('.icons')
+  openText.addEventListener("click", displayNote)
+  const noteList = document.querySelector('.notes-list')
+  const li = document.createElement('li')
+  li.className = "newNote"
+  li.appendChild(document.createTextNode(notes[0].title))
+  noteList.appendChild(li)
+  const lastNote = noteList.lastChild
+  lastNote.addEventListener("click", (evt) =>{
+    const lastNoteTitle = evt.target.innerHTML
+    readNote(lastNoteTitle)
+  })
+}
+
+initPage()
 
