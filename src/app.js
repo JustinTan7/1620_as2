@@ -35,7 +35,6 @@ function cancelNote() {
 
 // function that closes a ready only note
 function cancelReadOnly(){
-  //addNoteBtn.addEventListener('click', displayNote)
   const readOnlyArea = document.querySelector('.read-note-area')
   readOnlyArea.innerHTML = ''
 }
@@ -109,8 +108,7 @@ function saveNote() {
   // function that opens a saved noted and adds a button that can close the note
 function readNote(title){
   const readOnlyTemplate = `<textarea name="" class="textArea" cols="60" rows="30"></textarea>
-                            <button class="closeBtn">Close</button>`
-  const readNoteTitle = document.querySelector(".noteTitle")
+                            <button class="closeBtn">X</button>`
   var finalNote = ''
   for (x of notes){
     if (title == x.title){
@@ -122,7 +120,6 @@ function readNote(title){
   readTextArea.innerHTML = finalNote
   const closeButton = document.querySelector('.closeBtn')
   closeButton.addEventListener('click', cancelReadOnly)
-  //addNoteBtn.removeEventListener("click", displayNote)
   cancelNote()
   }
 }
@@ -143,19 +140,3 @@ function initPage(){
 }
 
 initPage()
-
-function darkmode(){
-  const dark = document.querySelector(".main-container")
-  if (checked == false){
-    dark.classList.replace('light-theme', 'dark-theme')
-    checked = true
-  } else if (checked == true){
-    dark.classList.replace('dark-theme', 'light-theme')
-    checked = false
-  }
-}
-
-function createCheck(){
-  var checkBox = document.querySelector('.theme-toggle')
-  checkBox.addEventListener('click', darkmode)
-}
